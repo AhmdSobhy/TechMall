@@ -1,0 +1,436 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="~/AdminStyle/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="~/AdminStyle/js/table_script.js"></script>
+    <style>
+        .card1 {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body >
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    @*<li class="breadcrumb-item active">Dashboard</li>*@
+                </ol>
+               
+                @* order and sales cards  *@
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                Sales
+                            </div>
+                            <div class="card-body"><canvas id="myAreaChart" width="100" height="40"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar me-1"></i>
+                                Orders
+                            </div>
+                            <div class="card-body"><canvas id="myBarChart" width="100" height="40"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+                @*Top 10 products and financial reports*@
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Best Seller Products
+                            </div>
+                            <div class="card-body">
+                                <div class="card1 col-xl-12">
+                                    <div class="card1 col-xl-3 bg-light">
+                                        <img src="https://www.apple.com/newsroom/images/live-action/april-2021/apple_product-availability-spring21_iphone12-purple_us_04292021_big_carousel.jpg.large.jpg"
+                                             class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Iphone 12
+                                                Color:Purple
+                                                1200 Pieces sold
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card1 col-xl-3 bg-light">
+                                        <img src="https://www.apple.com/newsroom/images/live-action/april-2021/apple_product-availability-spring21_imac-blue_04292021_big_carousel.jpg.large.jpg"
+                                             class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                IMac
+                                                Color:Blue
+                                                100 Pieces sold
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card1 col-xl-3 bg-light">
+                                        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX4A2?wid=980&hei=551&fmt=jpeg&qlt=95&.v=1618028917000"
+                                             class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                AirTag Cover
+                                                Color:Brown
+                                                100 Pieces sold
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card1 col-xl-3 bg-light">
+                                        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/FTUR2?wid=980&hei=550&fmt=jpeg&qlt=80&.v=1555706530208"
+                                             class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Watch Series 4
+                                                Color:Gold
+                                                150 Pieces sold
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card1 col-xl-3 bg-light">
+                                        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airtag-og-202104?wid=900&hei=550&fmt=jpeg&qlt=95&.v=1617846552000"
+                                             class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                AirTag
+                                                Color:White
+                                                200 Pieces sold
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Customers
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>No. of Orders</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Total Money Spent</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>No. of Orders</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Total Money Spent</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr id="row1">
+                                        <td id="name_row1">Tiger Nixon</td>
+                                        <td id="order_row1">20</td>
+                                        <td id="age_row1">61</td>
+                                        <td id="date_row1">2011/04/25</td>
+                                        <td id="money_row1">$30,800</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit1"><a class="dropdown-item" onclick="edit_row(1)">Edit</a></li>
+                                                    <li id="delete1"><a class="dropdown-item" onclick="delete_row(1)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row2">
+                                        <td id="name_row2">Garrett Winters</td>
+                                        <td id="order_row2">25</td>
+                                        <td id="age_row2">63</td>
+                                        <td id="date_row2">2011/07/25</td>
+                                        <td id="money_row2">$17,750</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit2"><a class="dropdown-item" onclick="edit_row(2)">Edit</a></li>
+                                                    <li id="delete2"><a class="dropdown-item" onclick="delete_row(2)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row3">
+                                        <td id="name_row3">Ashton Cox</td>
+                                        <td id="order_row3">22</td>
+                                        <td id="age_row3">66</td>
+                                        <td id="date_row3">2009/01/12</td>
+                                        <td id="money_row3">$18,000</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit3"><a class="dropdown-item" onclick="edit_row(3)">Edit</a></li>
+                                                    <li id="delete3"><a class="dropdown-item" onclick="delete_row(3)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row4">
+                                        <td id="name_row4">Cedric Kelly</td>
+                                        <td id="order_row4">15</td>
+                                        <td id="age_row4">22</td>
+                                        <td id="date_row4">2012/03/29</td>
+                                        <td id="money_row4">$14,060</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit4"><a class="dropdown-item" onclick="edit_row(4)">Edit</a></li>
+                                                    <li id="delete4"><a class="dropdown-item" onclick="delete_row(4)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row5">
+                                        <td id="name_row5">Airi Satou</td>
+                                        <td id="order_row5">14</td>
+                                        <td id="age_row5">33</td>
+                                        <td id="date_row5">2008/11/28</td>
+                                        <td id="money_row5">$16,700</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit5"><a class="dropdown-item" onclick="edit_row(5)">Edit</a></li>
+                                                    <li id="delete5"><a class="dropdown-item" onclick="delete_row(5)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row6">
+                                        <td id="name_row6">Brielle Williamson</td>
+                                        <td id="order_row6">14</td>
+                                        <td id="age_row6">61</td>
+                                        <td id="date_row6">2012/12/02</td>
+                                        <td id="money_row6">$12,000</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit6"><a class="dropdown-item" onclick="edit_row(6)">Edit</a></li>
+                                                    <li id="delete6"><a class="dropdown-item" onclick="delete_row(6)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row7">
+                                        <td id="name_row7">Herrod Chandler</td>
+                                        <td id="order_row7">13</td>
+                                        <td id="age_row7">59</td>
+                                        <td id="date_row7">2012/08/06</td>
+                                        <td id="money_row7">$17,500</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit7"><a class="dropdown-item" onclick="edit_row(7)">Edit</a></li>
+                                                    <li id="delete7"><a class="dropdown-item" onclick="delete_row(7)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row8">
+                                        <td id="name_row8">Rhona Davidson</td>
+                                        <td id="order_row8">12</td>
+                                        <td id="age_row8">55</td>
+                                        <td id="date_row8">2010/10/14</td>
+                                        <td id="money_row8">$32,900</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit8"><a class="dropdown-item" onclick="edit_row(8)">Edit</a></li>
+                                                    <li id="delete8"><a class="dropdown-item" onclick="delete_row(8)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row9">
+                                        <td id="name_row9">Colleen Hurst</td>
+                                        <td id="order_row9">18</td>
+                                        <td id="age_row9">39</td>
+                                        <td id="date_row9">2009/09/15</td>
+                                        <td id="money_row9">$20,500</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit9"><a class="dropdown-item" onclick="edit_row(9)">Edit</a></li>
+                                                    <li id="delete9"><a class="dropdown-item" onclick="delete_row(9)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row10">
+                                        <td id="name_row10">Sonya Frost</td>
+                                        <td id="order_row10">10</td>
+                                        <td id="age_row10">23</td>
+                                        <td id="date_row10">2008/12/13</td>
+                                        <td id="money_row10">$13,600</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit10"><a class="dropdown-item" onclick="edit_row(10)">Edit</a></li>
+                                                    <li id="delete10"><a class="dropdown-item" onclick="delete_row(10)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row11">
+                                        <td id="name_row11">Jena Gaines</td>
+                                        <td id="order_row11">8</td>
+                                        <td id="age_row11">30</td>
+                                        <td id="date_row11">2008/12/19</td>
+                                        <td id="money_row11">$9,560</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit11"><a class="dropdown-item" onclick="edit_row(11)">Edit</a></li>
+                                                    <li id="delete11"><a class="dropdown-item" onclick="delete_row(11)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row12">
+                                        <td id="name_row12">Gavin Joyce</td>
+                                        <td id="order_row12">4</td>
+                                        <td id="age_row12">42</td>
+                                        <td id="date_row12">2010/12/22</td>
+                                        <td id="money_row12">$2,575</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit12"><a class="dropdown-item" onclick="edit_row(12)">Edit</a></li>
+                                                    <li id="delete12"><a class="dropdown-item" onclick="delete_row(12)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="row13">
+                                        <td id="name_row13">Jennifer Chang</td>
+                                        <td id="order_row13">6</td>
+                                        <td id="age_row13">28</td>
+                                        <td id="date_row13">2010/11/14</td>
+                                        <td id="money_row13">$3,650</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit13"><a class="dropdown-item" onclick="edit_row(13)">Edit</a></li>
+                                                    <li id="delete13"><a class="dropdown-item" onclick="delete_row(13)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr id="row14">
+                                        <td id="name_row14">Michelle House</td>
+                                        <td id="order_row14">8</td>
+                                        <td id="age_row14">37</td>
+                                        <td id="date_row14">2011/06/02</td>
+                                        <td id="money_row14">$9,400</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    More
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li id="edit14"><a class="dropdown-item" onclick="edit_row(14)">Edit</a></li>
+                                                    <li id="delete14"><a class="dropdown-item" onclick="delete_row(14)">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Tech Mall 2022</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    </div>
+
+</body>
+</html>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/AdminStyle/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="~/AdminStyle/assets/demo/chart-area-demo.js"></script>
+    <script src="~/AdminStyle/assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="~/AdminStyle/js/datatables-simple-demo.js"></script>
+
+

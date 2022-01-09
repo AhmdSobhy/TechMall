@@ -1,0 +1,62 @@
+﻿@using OnlineShoppingStore.Models.Home;
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["cart"] == null)
+{
+    <div class="alert alert-danger">
+        <strong>No product added to cart!</strong>
+    </div>
+
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Line Total</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int Total = 0;
+            }
+            @foreach (Item item in (List<Item>)Session["cart"])
+            {
+                int lineTotal = Convert.ToInt32(item.Quantity * item.Product.Price);
+                Total = Convert.ToInt32(@Total + lineTotal);
+
+                Session["SesTotal"] = Total;
+
+                <tr>
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.Product.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@lineTotal</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" class="text-right"><b>Total: @Total</b></td>
+
+            </tr>
+        </tbody>
+    </table>
+    <!--@Html.BeginForm("PaymentMethod", "Home", FormMethod.Post)
+    {
+        <div class="form-group">
+            Cach @Html.RadioButton("payment_method", "1")-->
+            <!--<input type="radio" name="payment_method" value="1" checked="checked" />-->
+            <!--PayPal @Html.RadioButton("payment_method", "2")-->
+            <!--<input type="radio" name="payment_method" value="2" />-->
+        <!--</div>
+    }-->
+    <a href="@Url.Action("PaymentWithPaPal", "Payment")" class="btn btn-success">Payment >></a>
+    }
+
